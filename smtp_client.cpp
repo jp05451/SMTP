@@ -39,7 +39,12 @@ int main(int argc, char *argv[])
 
     // 你的郵件title和內容
     string subject = "Hello, SMTP Client";
+    cout << "Please enter your title: ";
+    cin >> subject;
+
     string body = "This is a test email sent using a simple SMTP client.";
+    cout << "Please enter your email body: " << endl;
+    cin >> body;
 
     // 建立套接字
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -75,37 +80,47 @@ int main(int argc, char *argv[])
     cout << "Server: " << buffer;
 
     // 發送 EHLO 命令
-    string ehlo_command = "EHLO client.example.com\r\n";
-    send(sockfd, ehlo_command.c_str(), ehlo_command.size(), 0);
+    string helo_command = "HELO client.example.com\r\n";
+    cout << "Client: " << helo_command << endl;
+    send(sockfd, helo_command.c_str(), helo_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
     // 發送寄件人命令
     string from_command = "MAIL FROM:<" + from + ">\r\n";
+    cout << "Client: " << from_command << endl;
+
     send(sockfd, from_command.c_str(), from_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
     // 發送收件人命令
     string to_command = "RCPT TO:<" + to + ">\r\n";
+    cout << "Client: " << to_command << endl;
+
     send(sockfd, to_command.c_str(), to_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
     // 發送郵件內容
     string data_command = "DATA\r\n";
+    cout << "Client: " << data_command << endl;
+
     send(sockfd, data_command.c_str(), data_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
     // 郵件主題和內容
     string email_content = "Subject: " + subject + "\r\n\r\n" + body + "\r\n.\r\n";
+    cout << "Client: " << email_content << endl;
     send(sockfd, email_content.c_str(), email_content.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
     // 退出 SMTP 會話
     string quit_command = "QUIT\r\n";
+    cout << "Client: " << quit_command << endl;
+
     send(sockfd, quit_command.c_str(), quit_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
