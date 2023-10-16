@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
-    // 發送 EHLO 命令
+    // 發送 HELO 命令
     string helo_command = "HELO client.example.com\r\n";
     cout << "Client: " << helo_command << endl;
     send(sockfd, helo_command.c_str(), helo_command.size(), 0);
