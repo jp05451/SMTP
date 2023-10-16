@@ -14,7 +14,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     // SMTP 伺服器資訊
-    string server = "127.0.0.1";
+    string server = "issues.com";
     int port = 25;
     for (int i = 0; i < argc; i++)
     {
