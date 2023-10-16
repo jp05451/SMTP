@@ -81,14 +81,16 @@ int main(int argc, char *argv[])
 
     // 發送 HELO 命令
     string helo_command = "HELO client.example.com\r\n";
-    cout << "Client: " << helo_command << endl;
+    cout << "HELO command" << endl
+         << "Client: " << helo_command << endl;
     send(sockfd, helo_command.c_str(), helo_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
     cout << "Server: " << buffer;
 
     // 發送寄件人命令
     string from_command = "MAIL FROM:<" + from + ">\r\n";
-    cout << "Client: " << from_command << endl;
+    cout << "FROM command" << endl
+         << "Client: " << from_command << endl;
 
     send(sockfd, from_command.c_str(), from_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
@@ -96,7 +98,8 @@ int main(int argc, char *argv[])
 
     // 發送收件人命令
     string to_command = "RCPT TO:<" + to + ">\r\n";
-    cout << "Client: " << to_command << endl;
+    cout << "To command" << endl
+         << "Client: " << to_command << endl;
 
     send(sockfd, to_command.c_str(), to_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
@@ -104,7 +107,8 @@ int main(int argc, char *argv[])
 
     // 發送郵件內容
     string data_command = "DATA\r\n";
-    cout << "Client: " << data_command << endl;
+    cout << "data command" << endl
+         << "Client: " << data_command << endl;
 
     send(sockfd, data_command.c_str(), data_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
@@ -119,7 +123,8 @@ int main(int argc, char *argv[])
 
     // 退出 SMTP 會話
     string quit_command = "QUIT\r\n";
-    cout << "Client: " << quit_command << endl;
+    cout << "quit command"
+         << "Client: " << quit_command << endl;
 
     send(sockfd, quit_command.c_str(), quit_command.size(), 0);
     recv(sockfd, buffer, sizeof(buffer), 0);
